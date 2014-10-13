@@ -7,7 +7,7 @@ interface State extends Function { }
 function wait(delay: number, after: State): State {
     var initTime = game.time;
 
-    var wait: (self: BaseStage) => State = (self) => {
+    var wait: (self: CustomStage) => State = (self) => {
         if ((game.time - initTime) >= delay) return after;
         return wait;
     };
@@ -16,7 +16,7 @@ function wait(delay: number, after: State): State {
 }
 
 function waitForInput(after: (input: GameAPI.Control) => State): State {
-    var inner: (self: BaseStage) => State = (self) => {
+    var inner: (self: CustomStage) => State = (self) => {
         if (controls.a.justPressed) return after(controls.a);
         if (controls.b.justPressed) return after(controls.b);
         if (controls.start.justPressed) return after(controls.start);
