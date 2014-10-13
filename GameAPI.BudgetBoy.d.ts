@@ -705,6 +705,6 @@ declare module GameAPI.BudgetBoy {
         equals(swatch: GameAPI.BudgetBoy.Swatch) : boolean;
     }
 }
-declare var audio: GameAPI.BudgetBoy.Audio;
 declare var controls: GameAPI.BudgetBoy.Controls;
+declare var audio: GameAPI.BudgetBoy.Audio;
 declare var graphics: GameAPI.BudgetBoy.Graphics;
