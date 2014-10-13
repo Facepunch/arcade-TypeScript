@@ -1,5 +1,7 @@
 /// <reference path="GameAPI.BudgetBoy.d.ts"/>
 
+declare var game: any;
+
 interface State extends Function { }
 
 function wait(delay: number, after: State): State {
