@@ -145,12 +145,12 @@ declare module GameAPI.BudgetBoy {
         stage: GameAPI.BudgetBoy.Stage;
 
         /**
-         * Has the graphics for this entity loaded yet?.
+         * Has the graphics for this entity loaded yet?
          */
         hasLoadedGraphics: boolean;
 
         /**
-         * Has the audio for this entity loaded yet?.
+         * Has the audio for this entity loaded yet?
          */
         hasLoadedAudio: boolean;
 
@@ -185,7 +185,7 @@ declare module GameAPI.BudgetBoy {
         isActive: boolean;
 
         /**
-         * Does this entity auto calculate its own bounds.
+         * Does this entity auto calculate its bounds from those of attached sprites.
          */
         autoCalculateBounds: boolean;
 
@@ -198,11 +198,6 @@ declare module GameAPI.BudgetBoy {
          * Local rectangle bounds.
          */
         bounds: GameAPI.RectF;
-
-        /**
-         * Convenient access to the game that the stage this entity is on.
-         */
-        game: GameAPI.BudgetBoy.Game;
 
         /**
          * Adds a sprite to this entity.
@@ -245,7 +240,7 @@ declare module GameAPI.BudgetBoy {
         getSpriteOffset(sprite: GameAPI.BudgetBoy.Sprite) : GameAPI.Vector2i;
 
         /**
-         * Calculates the bounds that contains every sprite on this entity.
+         * Calculates the smallest bounds that contains every sprite on this entity.
          */
         calculateBounds() : void;
 
@@ -529,12 +524,12 @@ declare module GameAPI.BudgetBoy {
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
 
         /**
-         * Called when this is the current stage.
+         * Called when this becomes the current stage.
          */
         onEnter() : void;
 
         /**
-         * Called when this is no longer the current stage.
+         * Called when another stage replaces this one as the current stage.
          */
         onLeave() : void;
 
@@ -706,5 +701,5 @@ declare module GameAPI.BudgetBoy {
     }
 }
 declare var controls: GameAPI.BudgetBoy.Controls;
-declare var audio: GameAPI.BudgetBoy.Audio;
 declare var graphics: GameAPI.BudgetBoy.Graphics;
+declare var audio: GameAPI.BudgetBoy.Audio;
