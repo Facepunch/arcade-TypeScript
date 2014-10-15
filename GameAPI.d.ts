@@ -668,11 +668,6 @@ declare module GameAPI {
         touches(other: GameAPI.RectI) : boolean;
 
         /**
-         * Returns true if the given vector lies within the bounds of this rectangle, including the edges.
-         */
-        touchesVec(vec: GameAPI.Vector2i) : boolean;
-
-        /**
          * Finds a rectangle representing the overlap between this and the given rectangle.
          */
         intersection(other: GameAPI.RectI) : GameAPI.RectI;
@@ -835,6 +830,11 @@ declare module GameAPI {
          * Vertical component.
          */
         y: number;
+
+        /**
+         * Magnitude of the vector in Taxicab geometry.
+         */
+        manhattanLength: number;
 
         /**
          * Sum of each component squared.
