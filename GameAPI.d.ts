@@ -186,6 +186,11 @@ declare module GameAPI {
         reset() : void;
 
         /**
+         * Renders the last frame shown before the game became paused.
+         */
+        renderPausedFrame() : void;
+
+        /**
          * Returns true if the given score qualifies as a highscore.
          */
         isScoreHighscore(score: number) : boolean;
