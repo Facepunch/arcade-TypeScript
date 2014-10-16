@@ -409,10 +409,30 @@ declare module GameAPI.BudgetBoy {
         clearScissor() : void;
     }
     export class PaletteBuilder {
+
+        /**
+         * Adds 64 swatches that approximate the NES palette, returning the index of the first color.
+         */
         addNesPalette() : GameAPI.BudgetBoy.SwatchIndex;
-        set(index: GameAPI.BudgetBoy.SwatchIndex, value: GameAPI.BudgetBoy.Swatch) : GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * Sets a particular index in the palette to be the given color swatch.
+         */
+        set(index: GameAPI.BudgetBoy.SwatchIndex, value: GameAPI.BudgetBoy.Swatch) : void;
+
+        /**
+         * Adds the given color swatch to the end of the palette, returning its index.
+         */
         add(swatch: GameAPI.BudgetBoy.Swatch) : GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * Adds a three color swatch to the end of the palette, returning its index.
+         */
         add(a: number, b: number, c: number) : GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * Adds a four color swatch to the end of the palette, returning its index.
+         */
         add(a: number, b: number, c: number, d: number) : GameAPI.BudgetBoy.SwatchIndex;
     }
     export class Palette {
@@ -680,31 +700,107 @@ declare module GameAPI.BudgetBoy {
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
     }
     export class Swatch {
+
+        /**
+         * Creates a three color swatch with a transparent fourth entry.
+         */
         constructor(a: GameAPI.Color24, b: GameAPI.Color24, c: GameAPI.Color24);
+
+        /**
+         * Creates a four color swatch.
+         */
         constructor(a: GameAPI.Color24, b: GameAPI.Color24, c: GameAPI.Color24, d: GameAPI.Color24);
+
+        /**
+         * Represents a completely non-visible swatch.
+         */
         static FULLY_TRANSPARENT: GameAPI.BudgetBoy.Swatch;
+
+        /**
+         * First color in the swatch.
+         */
         a: GameAPI.Color24;
+
+        /**
+         * Second color in the swatch.
+         */
         b: GameAPI.Color24;
+
+        /**
+         * Third color in the swatch.
+         */
         c: GameAPI.Color24;
+
+        /**
+         * Fourth color in the swatch.
+         */
         d: GameAPI.Color24;
+
+        /**
+         * If true, the first color in the swatch is transparent.
+         */
         transparencyA: boolean;
+
+        /**
+         * If true, the second color in the swatch is transparent.
+         */
         transparencyB: boolean;
+
+        /**
+         * If true, the third color in the swatch is transparent.
+         */
         transparencyC: boolean;
+
+        /**
+         * If true, the fourth color in the swatch is transparent.
+         */
         transparencyD: boolean;
+
+        /**
+         * If true, all four colors in the swatch are transparent.
+         */
         isFullyTransparent: boolean;
 
         /**
          * Find the square of the euclidean difference between this swatch and another.
          */
         difference(other: GameAPI.BudgetBoy.Swatch) : number;
+
+        /**
+         * Tests for equality between this swatch and another.
+         */
         equals(swatch: GameAPI.BudgetBoy.Swatch) : boolean;
     }
     export class SwatchIndex {
+
+        /**
+         * Constructs a new SwatchIndex pointing to a swatch at the specified numeric index.
+         */
         constructor(index: number);
+
+        /**
+         * The index of a reserved swatch that is completely black.
+         */
         static BLACK: GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * The index of a reserved swatch that is completely white.
+         */
         static WHITE: GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * The index of a reserved swatch that is completely transparent.
+         */
         static TRANSPARENT: GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * The numeric index of a swatch in the palette.
+         */
         value: number;
+
+        /**
+         * If true, this index points to a reserved swatch that cannot be overwritten.
+         */
         isReserved: boolean;
     }
 }
