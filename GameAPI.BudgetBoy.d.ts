@@ -319,22 +319,22 @@ declare module GameAPI.BudgetBoy {
     export class Graphics extends GameAPI.GraphicsBase {
 
         /**
-         * Gets the palette of colors.
+         * A palette of color swatches used when drawing elements.
          */
         palette: GameAPI.BudgetBoy.Palette;
 
         /**
-         * Gets the render center.
+         * Center of the display in pixels, can be used to pan.
          */
         center: GameAPI.Vector2i;
 
         /**
-         * Gets the render bounds.
+         * Current bounding rectangle in pixels.
          */
         bounds: GameAPI.RectI;
 
         /**
-         * Gets the render scissor rect.
+         * Current clipping rectangle.
          */
         scissor: GameAPI.RectI;
 
@@ -351,7 +351,7 @@ declare module GameAPI.BudgetBoy {
         /**
          * Sets the color the screen will be cleared to using the specified palette index.
          */
-        setClearColor(index: number) : void;
+        setClearColor(index: GameAPI.BudgetBoy.SwatchIndex) : void;
 
         /**
          * Finds an image at the specified location.
@@ -359,44 +359,44 @@ declare module GameAPI.BudgetBoy {
         getImage(...location: String[]) : GameAPI.BudgetBoy.Image;
 
         /**
-         * Draws a single point at the specified point position with size and color.
+         * Draws a single point at the specified position with size and color.
          */
-        drawPoint(paletteIndex: number, size: number, point: GameAPI.Vector2i) : void;
+        drawPoint(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, size: number, point: GameAPI.Vector2i) : void;
 
         /**
-         * Draws multiple points at the specified point positions with size and color.
+         * Draws multiple points at the specified positions with size and color.
          */
-        drawPoints(paletteIndex: number, size: number, ...points: GameAPI.Vector2i[]) : void;
+        drawPoints(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, size: number, ...points: GameAPI.Vector2i[]) : void;
 
         /**
          * Draws a single line at the specified start and end position with thickness and color.
          */
-        drawLine(paletteIndex: number, thickness: number, start: GameAPI.Vector2i, end: GameAPI.Vector2i) : void;
+        drawLine(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, thickness: number, start: GameAPI.Vector2i, end: GameAPI.Vector2i) : void;
 
         /**
          * Draws multiple lines at the specified start and end positions with thickness and color.
          */
-        drawLines(paletteIndex: number, thickness: number, ...points: GameAPI.Vector2i[]) : void;
+        drawLines(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, thickness: number, ...points: GameAPI.Vector2i[]) : void;
 
         /**
          * Draws a line rectangle at the specified position with size, line thickness and color.
          */
-        drawRect(paletteIndex: number, thickness: number, origin: GameAPI.Vector2i, size: GameAPI.Vector2i) : void;
+        drawRect(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, thickness: number, origin: GameAPI.Vector2i, size: GameAPI.Vector2i) : void;
 
         /**
          * Draws a line rectangle at the specified rect with line thickness and color.
          */
-        drawRect(paletteIndex: number, thickness: number, rect: GameAPI.RectI) : void;
+        drawRect(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, thickness: number, rect: GameAPI.RectI) : void;
 
         /**
          * Draws a filled rectangle at the specified position with size and color.
          */
-        fillRect(paletteIndex: number, origin: GameAPI.Vector2i, size: GameAPI.Vector2i) : void;
+        fillRect(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, origin: GameAPI.Vector2i, size: GameAPI.Vector2i) : void;
 
         /**
          * Draws a filled rectangle at the specified rect with color.
          */
-        fillRect(paletteIndex: number, rect: GameAPI.RectI) : void;
+        fillRect(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, rect: GameAPI.RectI) : void;
 
         /**
          * Sets the bounds used to perform scissor tests.
@@ -408,17 +408,34 @@ declare module GameAPI.BudgetBoy {
          */
         clearScissor() : void;
     }
+    export class PaletteBuilder {
+        addNesPalette() : GameAPI.BudgetBoy.SwatchIndex;
+        set(index: GameAPI.BudgetBoy.SwatchIndex, value: GameAPI.BudgetBoy.Swatch) : GameAPI.BudgetBoy.SwatchIndex;
+        add(swatch: GameAPI.BudgetBoy.Swatch) : GameAPI.BudgetBoy.SwatchIndex;
+        add(a: number, b: number, c: number) : GameAPI.BudgetBoy.SwatchIndex;
+        add(a: number, b: number, c: number, d: number) : GameAPI.BudgetBoy.SwatchIndex;
+    }
     export class Palette {
 
         /**
-         * Finds a swatch closest to the specified palette indices.
+         * Gets the swatch at the specified index.
          */
-        findSwatch(a: number, b: number, c: number) : GameAPI.BudgetBoy.Swatch;
+        get(index: GameAPI.BudgetBoy.SwatchIndex) : GameAPI.BudgetBoy.Swatch;
 
         /**
-         * Finds a swatch closest to the specified palette indices with an additional index for transparency.
+         * Finds the index of a swatch closest to the specified colours,with transparency for the fourth color.
          */
-        findSwatch(a: number, b: number, c: number, d: number) : GameAPI.BudgetBoy.Swatch;
+        findSwatch(a: number, b: number, c: number) : GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * Finds the index of a swatch closest to the specified colours.
+         */
+        findSwatch(a: number, b: number, c: number, d: number) : GameAPI.BudgetBoy.SwatchIndex;
+
+        /**
+         * Finds the index of a swatch closest to the colors within the given swatch.
+         */
+        findSwatch(swatch: GameAPI.BudgetBoy.Swatch) : GameAPI.BudgetBoy.SwatchIndex;
     }
     export class RawImage extends GameAPI.BudgetBoy.Image {
     }
@@ -427,9 +444,9 @@ declare module GameAPI.BudgetBoy {
     export class Sprite {
 
         /**
-         * Constructs a new sprite using the specified image and swatch.
+         * Constructs a new sprite using the specified image and swatch index.
          */
-        constructor(image: GameAPI.BudgetBoy.Image, swatch: GameAPI.BudgetBoy.Swatch);
+        constructor(image: GameAPI.BudgetBoy.Image, swatchIndex: GameAPI.BudgetBoy.SwatchIndex);
 
         /**
          * The image used for this sprite.
@@ -487,9 +504,9 @@ declare module GameAPI.BudgetBoy {
         isVisible: boolean;
 
         /**
-         * Swatch to render with.
+         * Swatch index from the palette to render with.
          */
-        swatch: GameAPI.BudgetBoy.Swatch;
+        swatchIndex: GameAPI.BudgetBoy.SwatchIndex;
 
         /**
          * Render to screen.
@@ -548,7 +565,7 @@ declare module GameAPI.BudgetBoy {
         /**
          * Constructs a renderable text display using an image of 256 characters arranged in a 16x16 grid.
          */
-        constructor(charMap: GameAPI.BudgetBoy.Image, swatch: GameAPI.BudgetBoy.Swatch);
+        constructor(charMap: GameAPI.BudgetBoy.Image, swatchIndex: GameAPI.BudgetBoy.SwatchIndex);
 
         /**
          * Maximum number of characters in a line before it wraps.
@@ -648,14 +665,14 @@ declare module GameAPI.BudgetBoy {
         clearTile(col: number, row: number) : void;
 
         /**
-         * Set the image at the specified column and row with a swatch option.
+         * Set the image and swatch index at the specified column and row.
          */
-        setTile(col: number, row: number, image: GameAPI.BudgetBoy.Image, swatch: GameAPI.BudgetBoy.Swatch) : void;
+        setTile(col: number, row: number, image: GameAPI.BudgetBoy.Image, swatchIndex: GameAPI.BudgetBoy.SwatchIndex) : void;
 
         /**
-         * Set the image at the specified column and row with a swatch and flipping options.
+         * Set the image and swatch index at the specified column and row with flipping options.
          */
-        setTile(col: number, row: number, image: GameAPI.BudgetBoy.Image, swatch: GameAPI.BudgetBoy.Swatch, flipX: boolean, flipY: boolean) : void;
+        setTile(col: number, row: number, image: GameAPI.BudgetBoy.Image, swatchIndex: GameAPI.BudgetBoy.SwatchIndex, flipX: boolean, flipY: boolean) : void;
 
         /**
          * Render to screen.
@@ -663,43 +680,34 @@ declare module GameAPI.BudgetBoy {
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
     }
     export class Swatch {
+        constructor(a: GameAPI.Color24, b: GameAPI.Color24, c: GameAPI.Color24);
+        constructor(a: GameAPI.Color24, b: GameAPI.Color24, c: GameAPI.Color24, d: GameAPI.Color24);
+        static FULLY_TRANSPARENT: GameAPI.BudgetBoy.Swatch;
+        a: GameAPI.Color24;
+        b: GameAPI.Color24;
+        c: GameAPI.Color24;
+        d: GameAPI.Color24;
+        transparencyA: boolean;
+        transparencyB: boolean;
+        transparencyC: boolean;
+        transparencyD: boolean;
+        isFullyTransparent: boolean;
 
         /**
-         * Constructs a swatch with three indices from a palette, with the fourth index automatically assiged to 0xff for transparency.
+         * Find the square of the euclidean difference between this swatch and another.
          */
-        constructor(a: number, b: number, c: number);
-
-        /**
-         * Constructs a swatch with four indices from a palette.
-         */
-        constructor(a: number, b: number, c: number, d: number);
-
-        /**
-         * First palette index, or 0xff for transparency.
-         */
-        a: number;
-
-        /**
-         * Second palette index, or 0xff for transparency.
-         */
-        b: number;
-
-        /**
-         * Third palette index, or 0xff for transparency.
-         */
-        c: number;
-
-        /**
-         * Fourth palette index, or 0xff for transparency.
-         */
-        d: number;
-
-        /**
-         * Tests for equality with another swatch.
-         */
+        difference(other: GameAPI.BudgetBoy.Swatch) : number;
         equals(swatch: GameAPI.BudgetBoy.Swatch) : boolean;
     }
+    export class SwatchIndex {
+        constructor(index: number);
+        static BLACK: GameAPI.BudgetBoy.SwatchIndex;
+        static WHITE: GameAPI.BudgetBoy.SwatchIndex;
+        static TRANSPARENT: GameAPI.BudgetBoy.SwatchIndex;
+        value: number;
+        isReserved: boolean;
+    }
 }
+declare var audio: GameAPI.BudgetBoy.Audio;
 declare var controls: GameAPI.BudgetBoy.Controls;
 declare var graphics: GameAPI.BudgetBoy.Graphics;
-declare var audio: GameAPI.BudgetBoy.Audio;
