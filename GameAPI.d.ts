@@ -276,6 +276,11 @@ declare module GameAPI {
          * Aspect ratio of the screen.
          */
         aspect: number;
+
+        /**
+         * Value representing the graphics hardware integrity, from 0 (faultless) to 1 (FUBAR).
+         */
+        corruption: number;
     }
     export class Highscore {
 
