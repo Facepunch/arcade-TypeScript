@@ -804,6 +804,6 @@ declare module GameAPI.BudgetBoy {
         isReserved: boolean;
     }
 }
+declare var audio: GameAPI.BudgetBoy.Audio;
 declare var controls: GameAPI.BudgetBoy.Controls;
 declare var graphics: GameAPI.BudgetBoy.Graphics;
-declare var audio: GameAPI.BudgetBoy.Audio;
