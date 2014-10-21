@@ -551,6 +551,11 @@ declare module GameAPI.BudgetBoy {
         add(renderable: any, layer: number) : any;
 
         /**
+         * Finds the stero audio bias value for the given world position.
+         */
+        getPanValue(pos: GameAPI.Vector2f) : number;
+
+        /**
          * Updates this stage, this already gets called every tick but it can be called again if needed.
          */
         update() : void;
