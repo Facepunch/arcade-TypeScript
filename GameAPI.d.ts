@@ -905,6 +905,11 @@ declare module GameAPI {
         log(format: String, ...args: any[]) : void;
 
         /**
+         * Emits an error message using the given .NET-style formatting string and arguments.
+         */
+        error(format: String, ...args: any[]) : void;
+
+        /**
          * Only emits the specified formatted message if the given assertion is false.
          */
         assert(value: boolean, format: String, ...args: any[]) : void;
