@@ -132,17 +132,14 @@ declare module GameAPI.BudgetBoy {
          */
         cursorPosition: GameAPI.Vector2f;
     }
-    export class Entity {
+    export class CoroutineContainer {
+    }
+    export class Entity extends GameAPI.BudgetBoy.CoroutineContainer {
 
         /**
          * Constructs a new entity.
          */
         constructor();
-
-        /**
-         * The stage this entity is currently on.
-         */
-        stage: GameAPI.BudgetBoy.Stage;
 
         /**
          * Has the graphics for this entity loaded yet?
@@ -200,6 +197,11 @@ declare module GameAPI.BudgetBoy {
         bounds: GameAPI.RectF;
 
         /**
+         * The stage this entity is currently on.
+         */
+        stage: GameAPI.BudgetBoy.Stage;
+
+        /**
          * Adds a sprite to this entity.
          */
         add(sprite: GameAPI.BudgetBoy.Sprite) : GameAPI.BudgetBoy.Sprite;
@@ -255,24 +257,24 @@ declare module GameAPI.BudgetBoy {
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
 
         /**
-         * Called when the stage this entity is on is now the current stage.
+         * Called when this entity enters a stage.
          */
         onEnterStage(stage: GameAPI.BudgetBoy.Stage) : void;
 
         /**
-         * Called when the stage this entity is on is no longer the current stage.
+         * Called when this entity leaves a stage.
          */
         onLeaveStage(stage: GameAPI.BudgetBoy.Stage) : void;
 
         /**
-         * Called when the graphics wants to load any graphics for this entity.
+         * Called when this entity should load any required graphics resources.
          */
-        onLoadGraphics() : void;
+        onLoadGraphics(graphics: GameAPI.BudgetBoy.Graphics) : void;
 
         /**
-         * Called when the audio wants to load any audio for this entity.
+         * Called when this entity should load any required audio resources.
          */
-        onLoadAudio() : void;
+        onLoadAudio(audio: GameAPI.BudgetBoy.Audio) : void;
 
         /**
          * Called when graphics and audio have finished loading.
@@ -287,7 +289,7 @@ declare module GameAPI.BudgetBoy {
         /**
          * Called every tick to draw a frame of this entity.
          */
-        onRender() : void;
+        onRender(graphics: GameAPI.BudgetBoy.Graphics) : void;
     }
     export class Game extends GameAPI.GameBase {
 
@@ -315,6 +317,8 @@ declare module GameAPI.BudgetBoy {
          * Changes the current stage.
          */
         setStage(obj: any) : void;
+        onLoadPalette(builder: GameAPI.BudgetBoy.PaletteBuilder) : void;
+        onRenderPauseScreen(timeUntilReset: number) : void;
     }
     export class Graphics extends GameAPI.GraphicsBase {
 
@@ -533,7 +537,7 @@ declare module GameAPI.BudgetBoy {
          */
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
     }
-    export class Stage {
+    export class Stage extends GameAPI.BudgetBoy.CoroutineContainer {
 
         /**
          * Constructs a new stage.
@@ -546,14 +550,14 @@ declare module GameAPI.BudgetBoy {
         timestep: number;
 
         /**
-         * Adds a renderable object to the specified layer.
-         */
-        add(renderable: any, layer: number) : any;
-
-        /**
          * Finds the stero audio bias value for the given world position.
          */
         getPanValue(pos: GameAPI.Vector2f) : number;
+
+        /**
+         * Adds a renderable object to the specified layer.
+         */
+        add(renderable: any, layer: number) : any;
 
         /**
          * Updates this stage, this already gets called every tick but it can be called again if needed.
@@ -564,25 +568,9 @@ declare module GameAPI.BudgetBoy {
          * Renders this stage, this already gets called every tick but it can be called again if needed.
          */
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
-
-        /**
-         * Called when this becomes the current stage.
-         */
         onEnter() : void;
-
-        /**
-         * Called when another stage replaces this one as the current stage.
-         */
         onLeave() : void;
-
-        /**
-         * Called every tick to update the stage.
-         */
         onUpdate() : void;
-
-        /**
-         * Called every tick to render the stage.
-         */
         onRender() : void;
     }
     export class Text extends GameAPI.BudgetBoy.Sprite {
