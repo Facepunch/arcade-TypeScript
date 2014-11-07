@@ -137,7 +137,7 @@ declare module GameAPI.BudgetBoy {
     export class Entity extends GameAPI.BudgetBoy.CoroutineContainer {
 
         /**
-         * Constructs a new entity.
+         * Constructs a new Entity.
          */
         constructor();
 
@@ -172,22 +172,22 @@ declare module GameAPI.BudgetBoy {
         panValue: number;
 
         /**
-         * Does this entity get rendered.
+         * Does this entity get rendered?
          */
         isVisible: boolean;
 
         /**
-         * Does this entity get updated.
+         * Does this entity get updated?
          */
         isActive: boolean;
 
         /**
-         * Does this entity auto calculate its bounds from those of attached sprites.
+         * Does this entity auto calculate its bounds from those of attached sprites?
          */
         autoCalculateBounds: boolean;
 
         /**
-         * Local rectangle bounds, setting this will disable auto bounds calculation.
+         * Local rectangle bounds. Setting this will disable auto bounds calculation.
          */
         localBounds: GameAPI.RectF;
 
@@ -197,52 +197,52 @@ declare module GameAPI.BudgetBoy {
         bounds: GameAPI.RectF;
 
         /**
-         * The stage this entity is currently on.
+         * The Stage this entity is currently added to.
          */
         stage: GameAPI.BudgetBoy.Stage;
 
         /**
-         * Adds a sprite to this entity.
+         * Adds a Sprite to this entity.
          */
         add(sprite: GameAPI.BudgetBoy.Sprite) : GameAPI.BudgetBoy.Sprite;
 
         /**
-         * Adds a sprite to this entity at the given offset.
+         * Adds a Sprite to this entity at the given offset.
          */
         add(sprite: GameAPI.BudgetBoy.Sprite, offset: GameAPI.Vector2i) : GameAPI.BudgetBoy.Sprite;
 
         /**
-         * Adds a sprite to this entity at the given offset and render layer.
+         * Adds a Sprite to this entity at the given offset and render layer.
          */
         add(sprite: GameAPI.BudgetBoy.Sprite, offset: GameAPI.Vector2i, layer: number) : GameAPI.BudgetBoy.Sprite;
 
         /**
-         * Removes the given sprite if it exists.
+         * Removes the given Sprite if it exists.
          */
         remove(sprite: GameAPI.BudgetBoy.Sprite) : void;
 
         /**
-         * Sets the sprite rendering layer on this entity.
+         * Sets the given Sprite's rendering layer on this entity.
          */
         setSpriteLayer(sprite: GameAPI.BudgetBoy.Sprite, layer: number) : void;
 
         /**
-         * Gets the rendering layer of the given sprite.
+         * Gets the rendering layer of the given Sprite.
          */
         getSpriteLayer(sprite: GameAPI.BudgetBoy.Sprite) : number;
 
         /**
-         * Sets the offset of the given sprite.
+         * Sets the offset of the given Sprite.
          */
         setSpriteOffset(sprite: GameAPI.BudgetBoy.Sprite, offset: GameAPI.Vector2i) : void;
 
         /**
-         * Gets the offset of the given sprite.
+         * Gets the offset of the given Sprite.
          */
         getSpriteOffset(sprite: GameAPI.BudgetBoy.Sprite) : GameAPI.Vector2i;
 
         /**
-         * Calculates the smallest bounds that contains every sprite on this entity.
+         * Calculates the smallest bounds that contains every Sprite on this entity.
          */
         calculateBounds() : void;
 
@@ -257,12 +257,12 @@ declare module GameAPI.BudgetBoy {
         render(graphics: GameAPI.BudgetBoy.Graphics) : void;
 
         /**
-         * Called when this entity enters a stage.
+         * Called when this entity enters a Stage.
          */
         onEnterStage(stage: GameAPI.BudgetBoy.Stage) : void;
 
         /**
-         * Called when this entity leaves a stage.
+         * Called when this entity leaves a Stage.
          */
         onLeaveStage(stage: GameAPI.BudgetBoy.Stage) : void;
 
@@ -277,7 +277,7 @@ declare module GameAPI.BudgetBoy {
         onLoadAudio(audio: GameAPI.BudgetBoy.Audio) : void;
 
         /**
-         * Called when graphics and audio have finished loading.
+         * Called when both graphics and audio have finished loading.
          */
         onReady() : void;
 
@@ -294,7 +294,7 @@ declare module GameAPI.BudgetBoy {
     export class Game extends GameAPI.GameBase {
 
         /**
-         * Gets the stage currently in use.
+         * Gets the Stage currently in use.
          */
         currentStage: GameAPI.BudgetBoy.Stage;
 
@@ -403,12 +403,12 @@ declare module GameAPI.BudgetBoy {
         fillRect(swatchIndex: GameAPI.BudgetBoy.SwatchIndex, rect: GameAPI.RectI) : void;
 
         /**
-         * Sets the bounds used to perform scissor tests.
+         * Sets the clipping rectangle. While set, only content in this rect is drawn.
          */
         setScissor(bounds: GameAPI.RectI) : void;
 
         /**
-         * Sets the scissor bounds to match the screen, effectively disabling scissor tests.
+         * Clears the scissor rect, if set.
          */
         clearScissor() : void;
     }
@@ -468,12 +468,12 @@ declare module GameAPI.BudgetBoy {
     export class Sprite {
 
         /**
-         * Constructs a new sprite using the specified image and swatch index.
+         * Constructs a new sprite using the specified Image and SwatchIndex.
          */
         constructor(image: GameAPI.BudgetBoy.Image, swatchIndex: GameAPI.BudgetBoy.SwatchIndex);
 
         /**
-         * The image used for this sprite.
+         * The Image used for this sprite.
          */
         image: GameAPI.BudgetBoy.Image;
 
@@ -493,27 +493,27 @@ declare module GameAPI.BudgetBoy {
         y: number;
 
         /**
-         * Width and Height.
+         * Width and Height of this sprite's Image..
          */
         size: GameAPI.Vector2i;
 
         /**
-         * Width of the Size.
+         * Width of this sprite's Image..
          */
         width: number;
 
         /**
-         * Height of the Size.
+         * Height of this sprite's Image..
          */
         height: number;
 
         /**
-         * Flip horizontally across the X axis.
+         * Determines whether this sprite's Image is drawn flipped along the x-axis.
          */
         flipX: boolean;
 
         /**
-         * Flip vertically across the Y axis.
+         * Determines whether this sprite's Image is drawn flipped along the y-axis.
          */
         flipY: boolean;
 
@@ -545,12 +545,12 @@ declare module GameAPI.BudgetBoy {
         constructor();
 
         /**
-         * Gets the games current time step.
+         * Gets the Game's current timestep (time since last frame).
          */
         timestep: number;
 
         /**
-         * Finds the stero audio bias value for the given world position.
+         * Finds the stereo audio bias value for the given world position.
          */
         getPanValue(pos: GameAPI.Vector2f) : number;
 
@@ -596,7 +596,7 @@ declare module GameAPI.BudgetBoy {
         charSize: GameAPI.Vector2i;
 
         /**
-         * Text to display, may be null to display nothing.
+         * The text to display. If null, nothing will be displayed.
          */
         value: String;
     }
@@ -608,7 +608,7 @@ declare module GameAPI.BudgetBoy {
         constructor(tileSize: GameAPI.Vector2i, dimensions: GameAPI.Vector2i);
 
         /**
-         * Width and Height of tiles.
+         * Width and Height of each tile.
          */
         tileSize: GameAPI.Vector2i;
 
@@ -638,17 +638,17 @@ declare module GameAPI.BudgetBoy {
         rows: number;
 
         /**
-         * Width and Height.
+         * Pixel width and height of the tilemap.
          */
         size: GameAPI.Vector2i;
 
         /**
-         * Width of the size.
+         * Pixel width of the tilemap.
          */
         width: number;
 
         /**
-         * Height of the size.
+         * Pixel height of the tilemap.
          */
         height: number;
 
@@ -730,27 +730,27 @@ declare module GameAPI.BudgetBoy {
         d: GameAPI.Color24;
 
         /**
-         * If true, the first color in the swatch is transparent.
+         * Is the first color in the swatch transparent?
          */
         transparencyA: boolean;
 
         /**
-         * If true, the second color in the swatch is transparent.
+         * Is the second color in the swatch transparent?
          */
         transparencyB: boolean;
 
         /**
-         * If true, the third color in the swatch is transparent.
+         * Is the third color in the swatch transparent?
          */
         transparencyC: boolean;
 
         /**
-         * If true, the fourth color in the swatch is transparent.
+         * Is the fourth color in the swatch transparent?
          */
         transparencyD: boolean;
 
         /**
-         * If true, all four colors in the swatch are transparent.
+         * Are all four colors in the swatch transparent?
          */
         isFullyTransparent: boolean;
 
