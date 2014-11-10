@@ -93,6 +93,11 @@ declare module GameAPI {
          * True if both component axes are now in the default position when at least one was not in the previous update.
          */
         justBecameZero: boolean;
+
+        /**
+         * True if a component axis is now not in the default position when both were in the previous update.
+         */
+        justBecameNonzero: boolean;
     }
     export class ControlsBase {
     }

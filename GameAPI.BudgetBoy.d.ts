@@ -44,6 +44,11 @@ declare module GameAPI.BudgetBoy {
         period: number;
 
         /**
+         * Animation doesn't progress while this is true.
+         */
+        isPaused: boolean;
+
+        /**
          * If true, the animation will restart from the beginning automatically when it ends.
          */
         isLooping: boolean;
@@ -57,6 +62,11 @@ declare module GameAPI.BudgetBoy {
          * Gets or sets the current animation frame.
          */
         frame: number;
+
+        /**
+         * Return one of the frames that makes up the animation.
+         */
+        getFrame(frameNum: number) : GameAPI.BudgetBoy.Image;
 
         /**
          * Resets the animation back to the first frame.
